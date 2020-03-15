@@ -27,7 +27,7 @@ jobs:
       - run:
           name: "Build docker image and push to docker hub"
           command: |
-               cp Doockerfile.production Dockerfile
+               cp Dockerfile.production Dockerfile
                docker build -t mse4694/example-nodejs-circle:latest .
                docker build -t mse4694/example-nodejs-circle:${CIRCLE_SHA1} .
                docker push mse4694/example-nodejs-circle:latest
