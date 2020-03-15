@@ -22,5 +22,15 @@ jobs:
             - node_modules
           key: v1-dependencies-{{ checksum "package.json" }}
       - run: npm run test
+      - setup_remote_docker
+      - run: docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
+      - run:
+          name: "Build docker image and push to docker hub"
+          command: |
+               cp Doockerfile.production Dockerfile
+               docker build -t mse4694/example-nodejs-circle:latest .
+               docker build -t mse4694/example-nodejs-circle:${CIRCLE_SHA1} .
+               docker push mse4694/example-nodejs-circle:latest
+               docker push mse4694/example-nodejs-circle:${CIRCLE_SHA1}
       - run: echo Done
 
