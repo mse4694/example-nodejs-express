@@ -124,5 +124,4 @@ workflows:
           requires:
             - build
             - test
-            -ship
-
+            - ship
